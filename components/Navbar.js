@@ -74,7 +74,8 @@ const Navbar = () => {
                     <li className="p-2 border-b">Shoes</li>
 
                 </ul>
-                <button className="btn bg-black mt-4 p-2 text-xl font-semibold mx-auto rounded-2xl hover:bg-gray-700 ">Checkout</button>
+                <button className="btn bg-black mt-4  p-2 text-xl font-semibold mx-2 rounded-2xl hover:bg-gray-700 ">Checkout</button>
+                <button className="btn bg-black mt-4 p-2 text-xl font-semibold mx-2 rounded-2xl hover:bg-gray-700 ">Clear</button>
             </div>
         </div>
     );
