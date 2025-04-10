@@ -1,11 +1,29 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { useState } from "react";
 
 const Post = () => {
     const router = useRouter();
     const { slug } = router.query;
+    const [pin, setPin] = useState();
+    const [service, setService] = useState();
 
-    const checkServicablity = () => { }
+    const checkServicablity = async () => {
+        let pins = await fetch('http://localhost:3000/api/pincode')
+
+        const pinJson = await pins.json();
+
+        if (pinJson.includes(parseInt(pin))) {
+            setService(true);
+        }
+        else {
+            setService(false)
+        }
+    }
+
+    const onChangePin = (e) => {
+        setPin(e.target.value)
+    }
 
 
     return (
@@ -164,7 +182,7 @@ const Post = () => {
                         </div>
                         <div className="flex">
                             <span className="title-font font-medium text-2xl text-gray-900">
-                                $58.00
+                                ₹499
                             </span>
                             <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                                 Add to Cart
@@ -182,14 +200,17 @@ const Post = () => {
                                 </svg>
                             </button>
                             <div className="pin flex space-x-2 text-sm ml-2 ">
-                                <input type="text m-2 px-2 border-2  "></input>
+                                <input placeholder="Enter  Pin" onChange={onChangePin} type="text m-2 px-2 border-2  "></input>
                                 <button onClick={checkServicablity} className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Check</button>
                             </div>
+
                         </div>
+                        {!service && service != null && <div className="text-red-500 ml-56">Sorry! We do not deliver to this address</div>}
+                        {service && service != null && <div className="text-green-500 ml-56">Yay! This address is serviceable</div>}
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 
